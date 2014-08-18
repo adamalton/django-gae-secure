@@ -51,12 +51,12 @@ class DecoratorsTest(TestCase):
         def my_view(request):
             return HttpResponse("OK")
 
-        with mock.patch("gaesecure.decorators.is_current_user_admin", True):
+        with mock.patch("gaesecure.decorators.is_current_user_admin", return_value=True):
             response = my_view(HttpRequest())
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content, "OK")
 
-        with mock.patch("gaesecure.decorators.is_current_user_admin", False):
+        with mock.patch("gaesecure.decorators.is_current_user_admin", return_value=False):
             response = my_view(HttpRequest())
             self.assertEqual(response.status_code, 403)
             self.assertNotEqual(response.content, "OK")

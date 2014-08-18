@@ -1,7 +1,7 @@
 from functools import wraps
 
 from django.http import HttpResponseForbidden
-from google.appengine.api.users import current_user_is_admin
+from google.appengine.api.users import is_current_user_admin
 
 
 def task_queue_only(view_func):
@@ -28,7 +28,7 @@ def gae_admin_only(view_func):
     """ View decorator that requires the user to be an administrator of the App Engine app. """
     @wraps(view_func)
     def new_view(*args, **kwargs):
-        if not current_user_is_admin():
+        if not is_current_user_admin():
             return HttpResponseForbidden("Cron requests only.")
         return view_func(*args, **kwargs)
 

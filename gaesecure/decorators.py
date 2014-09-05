@@ -31,6 +31,6 @@ def gae_admin_only(view_func):
     @wraps(view_func)
     def new_view(*args, **kwargs):
         if not is_current_user_admin():
-            return HttpResponseForbidden("Cron requests only.")
+            return HttpResponseForbidden("Admin users only.")
         return view_func(*args, **kwargs)
     return new_view

@@ -9,7 +9,7 @@ def task_queue_only(view_func):
     """
     @wraps(view_func)
     def new_view(request, *args, **kwargs):
-        if not request.META.get("X_APPENGINE_QUEUENAME"):
+        if not request.META.get("HTTP_X_APPENGINE_QUEUENAME"):
             return HttpResponseForbidden("Task queue requests only.")
         return view_func(request, *args, **kwargs)
     return new_view
@@ -20,7 +20,7 @@ def cron_only(view_func):
     """
     @wraps(view_func)
     def new_view(request, *args, **kwargs):
-        if not request.META.get("X_APPENGINE_CRON"):
+        if not request.META.get("HTTP_X_APPENGINE_CRON"):
             return HttpResponseForbidden("Cron requests only.")
         return view_func(request, *args, **kwargs)
     return new_view

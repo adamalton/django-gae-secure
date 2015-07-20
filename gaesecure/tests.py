@@ -16,7 +16,7 @@ class DecoratorsTest(TestCase):
 
         standard_request = HttpRequest()
         task_request = HttpRequest()
-        task_request.META['X_APPENGINE_QUEUENAME'] = "my-queue"
+        task_request.META['HTTP_X_APPENGINE_QUEUENAME'] = "my-queue"
 
         standard_response = my_view(standard_request)
         task_response = my_view(task_request)
@@ -35,7 +35,7 @@ class DecoratorsTest(TestCase):
 
         standard_request = HttpRequest()
         cron_request = HttpRequest()
-        cron_request.META['X_APPENGINE_CRON'] = "my-queue"
+        cron_request.META['HTTP_X_APPENGINE_CRON'] = "my-queue"
 
         standard_response = my_view(standard_request)
         cron_response = my_view(cron_request)
